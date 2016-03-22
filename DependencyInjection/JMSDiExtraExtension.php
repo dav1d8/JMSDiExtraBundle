@@ -152,10 +152,11 @@ class JMSDiExtraExtension extends Extension
             $cacheDir = $container->getParameterBag()->resolveValue($cacheDir);
 
             // clear the cache if container is re-build, needed for correct controller injections
-            $fs = new Filesystem();
-            if ($fs->exists($cacheDir)) {
-                $fs->remove($cacheDir);
-            }
+            // David: We don't use controller injections and clearing cache cause huge performance issue (15-20 sec initialization time instead of 3-4 sec)
+            //$fs = new Filesystem();
+            //if ($fs->exists($cacheDir)) {
+            //    $fs->remove($cacheDir);
+            //}
 
             if (!file_exists($cacheDir)) {
                 if (false === @mkdir($cacheDir, 0777, true)) {
